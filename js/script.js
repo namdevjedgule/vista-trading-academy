@@ -1,3 +1,9 @@
+window.onload = function () {
+  if (!window.location.hash) {
+    window.location.hash = "home";
+  }
+};
+
 const hamburger = document.getElementById("hamburger");
 const navLinks = document.getElementById("navLinks");
 
@@ -22,6 +28,92 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     navLinks.classList.remove("active");
 
   });
+
+});
+
+const track = document.getElementById("sliderTrack");
+const slides = document.querySelectorAll(".slide");
+const dots = document.querySelectorAll(".dot");
+const nextBtn = document.querySelector(".next");
+const prevBtn = document.querySelector(".prev");
+
+let index = 0;
+
+function updateSlider() {
+
+  track.style.transform = `translateX(-${index * 100}%)`;
+
+  dots.forEach(dot => dot.classList.remove("active"));
+  dots[index].classList.add("active");
+
+}
+
+nextBtn.addEventListener("click", () => {
+
+  index++;
+
+  if (index >= slides.length) {
+    index = 0;
+  }
+
+  updateSlider();
+
+});
+
+prevBtn.addEventListener("click", () => {
+
+  index--;
+
+  if (index < 0) {
+    index = slides.length - 1;
+  }
+
+  updateSlider();
+
+});
+
+dots.forEach((dot, i) => {
+
+  dot.addEventListener("click", () => {
+
+    index = i;
+    updateSlider();
+
+  });
+
+});
+
+/* Auto Slide */
+
+setInterval(() => {
+
+  index++;
+
+  if (index >= slides.length) {
+    index = 0;
+  }
+
+  updateSlider();
+
+}, 4000);
+
+let touchStartX = 0;
+
+track.addEventListener("touchstart", (e) => {
+  touchStartX = e.touches[0].clientX;
+});
+
+track.addEventListener("touchend", (e) => {
+
+  let touchEndX = e.changedTouches[0].clientX;
+
+  if (touchStartX - touchEndX > 50) {
+    nextBtn.click();
+  }
+
+  if (touchEndX - touchStartX > 50) {
+    prevBtn.click();
+  }
 
 });
 
@@ -66,30 +158,38 @@ window.addEventListener("scroll", function () {
   }
 });
 
-  hamburger.addEventListener("click", () => {
+hamburger.addEventListener("click", () => {
   navLinks.classList.toggle("active");
   hamburger.classList.toggle("active");
 });
 
-const counters = document.querySelectorAll('.counter');
+const counters = document.querySelectorAll(".counter");
 
 counters.forEach(counter => {
-  const update = () => {
-    const target = +counter.getAttribute('data-target');
-    const count = +counter.innerText;
-    const increment = target / 200;
 
-    if (count < target) {
-      counter.innerText = Math.ceil(count + increment);
-      setTimeout(update, 10);
+  const target = +counter.getAttribute("data-target");
+  const suffix = counter.getAttribute("data-suffix") || "";
+
+  const updateCounter = () => {
+
+    const current = +counter.innerText.replace(suffix, "");
+
+    const increment = target / 150;
+
+    if (current < target) {
+      counter.innerText = Math.ceil(current + increment) + suffix;
+      setTimeout(updateCounter, 20);
     } else {
-      counter.innerText = target;
+      counter.innerText = target + suffix;
     }
+
   };
-  update();
+
+  updateCounter();
+
 });
 
-document.getElementById("contactForm").addEventListener("submit", function(e) {
+document.getElementById("contactForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
   const name = document.getElementById("name").value;
@@ -108,22 +208,22 @@ const testimonialCards = document.querySelectorAll(".testimonial-card");
 
 let testimonialIndex = 0;
 
-function slideTestimonials(){
+function slideTestimonials() {
 
   const cardWidth = testimonialCards[0].offsetWidth + 25;
 
   testimonialIndex++;
 
-  if(testimonialIndex >= testimonialCards.length - 3){
+  if (testimonialIndex >= testimonialCards.length - 3) {
     testimonialIndex = 0;
   }
 
   testimonialTrack.style.transform =
-  `translateX(-${testimonialIndex * cardWidth}px)`;
+    `translateX(-${testimonialIndex * cardWidth}px)`;
 
 }
 
-setInterval(slideTestimonials,3000);
+setInterval(slideTestimonials, 3000);
 
 const images = document.querySelectorAll(".footer-gallery img");
 const lightbox = document.getElementById("lightbox");
@@ -135,46 +235,70 @@ const closeBtn = document.getElementById("closeBtn");
 
 let currentIndex = 0;
 
-images.forEach((img,index)=>{
-  img.addEventListener("click",()=>{
+images.forEach((img, index) => {
+  img.addEventListener("click", () => {
     currentIndex = index;
     showImage();
-    lightbox.style.display="flex";
+    lightbox.style.display = "flex";
   });
 });
 
-function showImage(){
+function showImage() {
   lightboxImg.src = images[currentIndex].src;
 }
 
-next.addEventListener("click",()=>{
+next.addEventListener("click", () => {
   currentIndex = (currentIndex + 1) % images.length;
   showImage();
 });
 
-prev.addEventListener("click",()=>{
+prev.addEventListener("click", () => {
   currentIndex = (currentIndex - 1 + images.length) % images.length;
   showImage();
 });
 
-closeBtn.addEventListener("click",()=>{
-  lightbox.style.display="none";
+closeBtn.addEventListener("click", () => {
+  lightbox.style.display = "none";
 });
 
 let startX = 0;
 
-lightbox.addEventListener("touchstart",(e)=>{
+lightbox.addEventListener("touchstart", (e) => {
   startX = e.touches[0].clientX;
 });
 
-lightbox.addEventListener("touchend",(e)=>{
+lightbox.addEventListener("touchend", (e) => {
   let endX = e.changedTouches[0].clientX;
 
-  if(startX - endX > 50){
+  if (startX - endX > 50) {
     next.click();
   }
 
-  if(endX - startX > 50){
+  if (endX - startX > 50) {
     prev.click();
+  }
+});
+
+document.getElementById("contactForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  let firstName = document.getElementById("firstName").value.trim();
+  let lastName = document.getElementById("lastName").value.trim();
+  let email = document.getElementById("email").value.trim();
+  let phone = document.getElementById("phone").value.trim();
+  let subject = document.getElementById("subject").value.trim();
+
+  if (firstName && lastName && email && phone && subject) {
+    let whatsappNumber = "918669586311";
+
+    let message = `Hello, I am *${firstName} ${lastName}*.\n📧 Email: ${email}\n📞 Phone: ${phone}\n📝 Subject: ${subject}`;
+
+    let encodedMessage = encodeURIComponent(message);
+
+    let whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+    window.open(whatsappURL, "_blank");
+  } else {
+    alert("Please fill all fields.");
   }
 });
