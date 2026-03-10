@@ -53,6 +53,7 @@
         <div class="slide slide1"></div>
         <div class="slide slide2"></div>
         <div class="slide slide3"></div>
+        <div class="slide slide4"></div>
 
       </div>
 
@@ -61,6 +62,7 @@
 
       <div class="slider-dots">
         <span class="dot active"></span>
+        <span class="dot"></span>
         <span class="dot"></span>
         <span class="dot"></span>
       </div>
@@ -132,16 +134,14 @@
       <div class="vision-card">
         <h3>Our Mission</h3>
         <p>
-          To empower individuals with practical knowledge and strategies to succeed
-          in financial markets.
+          Empowering traders with the skills and knowledge to succeed in markets.
         </p>
       </div>
 
       <div class="vision-card">
         <h3>Our Vision</h3>
         <p>
-          To build a community of skilled traders who use financial markets
-          as a tool for wealth creation.
+          Creating a community of traders who use markets to build wealth.
         </p>
       </div>
 
@@ -192,41 +192,46 @@
 
     <div class="course-grid">
 
-      <div class="course-card">
-        <img src="images/courses/masterclass-removebg-preview.png" alt="Data Science">
+      <div class="course-card card-base">
+        <img src="images/courses/masterclass-removebg-preview.png" alt="Trading Masterclass">
         <h3>Trading & Investing Masterclass</h3>
         <p>
-          Comprehensive training in stock market investing, portfolio management, and trading strategies.
+          Learn stock market basics, derivatives, options strategies, fundamental analysis, risk management, and trading
+          psychology.
         </p>
         <button>Learn More</button>
       </div>
 
-      <div class="course-card">
-        <img src="images/courses/fo-removebg-preview.png" alt="Data Analytics">
-        <h3>Futures & Options Trading Accelerator</h3>
+      <div class="course-card card-base">
+        <img src="images/courses/crypto-removebg-preview.png" alt="Forex Crypto">
+        <h3>Forex & Crypto Power Trader</h3>
         <p>
-          Learn advanced F&O strategies, risk management, and market analysis for professional trading.
+          Master forex and crypto trading with technical analysis, strategy building, trade setup, and advanced trading
+          techniques.
         </p>
         <button>Learn More</button>
       </div>
 
-      <div class="course-card">
-        <img src="images/courses/crypto-removebg-preview.png" alt="Data Engineering">
-        <h3>Crypto & Forex Power Trader</h3>
-        <p>
-          Master cryptocurrency and forex trading, technical analysis, and real-time market techniques.
-        </p>
-        <button>Learn More</button>
-      </div>
-
-      <div class="course-card">
-        <img src="images/courses/master-trader-removebg-preview.png" alt="Generative AI">
+      <div class="course-card card-base">
+        <img src="images/courses/master-trader-removebg-preview.png" alt="Master Trader">
         <h3>Master Trader Pro</h3>
         <p>
-          Expert-level course covering advanced trading systems, market psychology, and professional tools.
+          Advanced course covering futures, options, forex, risk management, trading psychology, and diversified trading
+          techniques.
         </p>
         <button>Learn More</button>
       </div>
+
+      <div class="course-card card-base">
+        <img src="images/courses/fo-removebg-preview.png" alt="Trading Accelerator">
+        <h3>3 Dimensional Trading Accelerator</h3>
+        <p>
+          Premium program with mentor support, strategy backtesting, personal guidance, and one-to-one trading
+          consultation.
+        </p>
+        <button>Learn More</button>
+      </div>
+
     </div>
   </section>
 
@@ -284,29 +289,53 @@
 
     <div class="resources-container">
 
-      <div class="resource-card">
-        <img src="images/Gemini_Generated_Image_rje9j8rje9j8rje9.png" alt="">
-        <h3>Beginner Trading Guide</h3>
-        <p>Learn the basics of stock market trading, charts, and strategies.</p>
-        <a href="resources/trading-guide.pdf" download class="resource-btn">Download PDF</a>
+      <div class="resource-card"
+        onclick="openPopup('resources/top-mistakes.pdf','images/resources/top-mistakes.jpg', 'Top Trading Mistakes Guide')">
+        <img src="images/resources/top-mistakes.jpg" alt="">
       </div>
 
-      <div class="resource-card">
-        <img src="images/Gemini_Generated_Image_rje9j8rje9j8rje9.png" alt="">
-        <h3>Intraday Strategy</h3>
-        <p>Powerful intraday trading setup used by professional traders.</p>
-        <a href="resources/intraday-strategy.pdf" download class="resource-btn">Download PDF</a>
+      <div class="resource-card"
+        onclick="openPopup('resources/begineer-guide.pdf','images/resources/begineer-guide.jpg', 'Begineer Guide')">
+        <img src="images/resources/begineer-guide.jpg" alt="">
       </div>
 
-      <div class="resource-card">
-        <img src="images/Gemini_Generated_Image_rje9j8rje9j8rje9.png  " alt="">
-        <h3>Risk Management Guide</h3>
-        <p>Understand position sizing and capital protection methods.</p>
-        <a href="resources/risk-management.pdf" download class="resource-btn">Download PDF</a>
+      <div class="resource-card"
+        onclick="openPopup('resources/investing-guide.pdf','images/resources/investing-guide.jpg', 'Investing Guide')">
+        <img src="images/resources/investing-guide.jpg" alt="">
       </div>
 
     </div>
   </section>
+
+  <div id="resourcePopup" class="popup">
+    <div class="popup-content">
+
+      <span class="close-popupbtn" onclick="closePopup()">×</span>
+
+      <div class="popup-grid">
+
+        <div class="popup-image">
+          <img id="popupImg" src="" alt="">
+        </div>
+
+        <div class="popup-form">
+          <h3>Get Free Resource</h3>
+          <p>Enter your details to get the free guide and start learning profitable trading strategies.</p>
+          <p>Please fill details first then only you can download.</p>
+          <form id="resourceForm">
+            <input type="name" id="name" placeholder="Your Name" required>
+            <input type="email" id="email" placeholder="Your Email" required>
+            <input type="phone" id="phone" placeholder="Phone Number" required>
+
+            <button type="submit" id="downloadBtn" disabled>Download Now</button>
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
 
   <section id="blog" class="section">
     <h2>Blogs</h2>
@@ -315,7 +344,7 @@
 
       <div class="blog-row">
         <div class="blog-image">
-          <img src="images/about-vista/trading-chart.png" alt="">
+          <img src="images/blog/Earn-Money-From-Stock-Trading-1536x1024.jpg" alt="">
         </div>
 
         <div class="blog-text">
@@ -331,7 +360,7 @@
       <div class="blog-row reverse">
 
         <div class="blog-image">
-          <img src="images/about-vista/trading-chart.png" alt="">
+          <img src="images/blog/most-profitable-strategies.jpeg" alt="">
         </div>
 
         <div class="blog-text">
@@ -347,7 +376,7 @@
 
       <div class="blog-row">
         <div class="blog-image">
-          <img src="images/about-vista/trading-chart.png" alt="">
+          <img src="images/blog/Earn-Money-From-Share-Market-Trading-1536x1025.jpg" alt="">
         </div>
 
         <div class="blog-text">
@@ -377,7 +406,6 @@
 
       <div class="testimonial-track">
 
-        <!-- CARD -->
         <div class="testimonial-card">
           <div class="testimonial-top">
             <div class="user-icon"><i class="fa-solid fa-user"></i></div>
@@ -394,7 +422,6 @@
           <p>I learned a lot of trading and investment concepts through Vista Trading Academy.</p>
         </div>
 
-        <!-- CARD -->
         <div class="testimonial-card">
           <div class="testimonial-top">
             <div class="user-icon"><i class="fa-solid fa-user"></i></div>
@@ -408,7 +435,6 @@
           <p>It was really nice and easy to learn trading from Rahul Sir.</p>
         </div>
 
-        <!-- CARD -->
         <div class="testimonial-card">
           <div class="testimonial-top">
             <div class="user-icon"><i class="fa-solid fa-user"></i></div>
@@ -421,8 +447,6 @@
           <div class="stars">⭐⭐⭐⭐⭐</div>
           <p>Very good learning experience. Rahul Hinge is very experienced.</p>
         </div>
-
-        <!-- DUPLICATE SAME CARDS AGAIN (IMPORTANT FOR LOOP) -->
 
         <div class="testimonial-card">
           <div class="testimonial-top">
@@ -483,6 +507,16 @@
     </div>
   </section>
 
+  <section class="section dark" id="certification">
+    <h2>ISO Certified</h2>
+
+    <div class="certificate-box">
+      <img src="images/certificate/VISTA INVESTMENTS ISO 9001 CERT_page-0001.jpg" alt="ISO Certified Certificate">
+      <p>Vista Trading Academy is proudly ISO certified for maintaining high standards in education and professional
+        training.</p>
+    </div>
+  </section>
+
   <footer class="footer">
 
     <div class="footer-container">
@@ -523,22 +557,6 @@
         <p>Mon – Sat : 9 AM – 9 PM</p>
         <p>Sunday Closed</p>
       </div>
-
-      <!-- <div class="footer-col">
-        <h3>Pages</h3>
-
-        <ul>
-          <li><a href="#">About Vista Trading Academy</a></li>
-          <li><a href="#">Trading & Investing Masterclass</a></li>
-          <li><a href="#">Crypto & Forex Power Trader</a></li>
-          <li><a href="#">Futures & Options Trading Accelerator</a></li>
-          <li><a href="#">Master Trader Pro</a></li>
-          <li class="divider"></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms And Conditions</a></li>
-          <li><a href="#">Cancellation and Refund Policy</a></li>
-        </ul>
-      </div> -->
 
       <div class="footer-col">
         <h3>Official Info</h3>

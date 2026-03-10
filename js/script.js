@@ -83,8 +83,6 @@ dots.forEach((dot, i) => {
 
 });
 
-/* Auto Slide */
-
 setInterval(() => {
 
   index++;
@@ -189,6 +187,90 @@ counters.forEach(counter => {
 
 });
 
+let currentPDF = "";
+let currentResource = "";
+
+// Open popup
+function openPopup(pdf, img, resourceName) {
+  document.getElementById("resourcePopup").style.display = "flex";
+  document.getElementById("popupImg").src = img;
+
+  currentPDF = pdf;
+  currentResource = resourceName;
+}
+
+// Close popup
+function closePopup() {
+  document.getElementById("resourcePopup").style.display = "none";
+}
+
+// Form submit
+document.getElementById("resourceForm").addEventListener("submit", function(e) {
+
+  e.preventDefault();
+
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+
+  if (!name || !email || !phone) {
+    alert("Please fill all details before downloading.");
+    return;
+  }
+
+  const yourWhatsApp = "918669586311";
+
+  const message =
+`New Resource Download Lead
+
+Name: ${name}
+Email: ${email}
+Phone: ${phone}
+
+Downloaded Resource: ${currentResource}`;
+
+  const whatsappURL =
+`https://wa.me/${yourWhatsApp}?text=${encodeURIComponent(message)}`;
+
+  // Open WhatsApp
+  window.open(whatsappURL, "_blank");
+
+  // Download PDF
+  const link = document.createElement("a");
+  link.href = currentPDF;
+  link.download = "";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+  // Reset form
+  document.getElementById("resourceForm").reset();
+
+  // Close popup
+  closePopup();
+
+});
+
+const form = document.getElementById("resourceForm");
+const inputs = form.querySelectorAll("input");
+const downloadBtn = document.getElementById("downloadBtn");
+
+inputs.forEach(input => {
+  input.addEventListener("input", checkFields);
+});
+
+function checkFields() {
+  let allFilled = true;
+
+  inputs.forEach(input => {
+    if (input.value.trim() === "") {
+      allFilled = false;
+    }
+  });
+
+  downloadBtn.disabled = !allFilled;
+}
+
 document.getElementById("contactForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -223,7 +305,7 @@ function slideTestimonials() {
 
 }
 
-setInterval(slideTestimonials, 3000);
+setInterval(slideTestimonials, 1200);
 
 const images = document.querySelectorAll(".footer-gallery img");
 const lightbox = document.getElementById("lightbox");
