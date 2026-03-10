@@ -205,7 +205,7 @@ function closePopup() {
 }
 
 // Form submit
-document.getElementById("resourceForm").addEventListener("submit", function(e) {
+document.getElementById("resourceForm").addEventListener("submit", function (e) {
 
   e.preventDefault();
 
@@ -221,7 +221,7 @@ document.getElementById("resourceForm").addEventListener("submit", function(e) {
   const yourWhatsApp = "918669586311";
 
   const message =
-`New Resource Download Lead
+    `New Resource Download Lead
 
 Name: ${name}
 Email: ${email}
@@ -230,7 +230,7 @@ Phone: ${phone}
 Downloaded Resource: ${currentResource}`;
 
   const whatsappURL =
-`https://wa.me/${yourWhatsApp}?text=${encodeURIComponent(message)}`;
+    `https://wa.me/${yourWhatsApp}?text=${encodeURIComponent(message)}`;
 
   // Open WhatsApp
   window.open(whatsappURL, "_blank");
@@ -270,20 +270,6 @@ function checkFields() {
 
   downloadBtn.disabled = !allFilled;
 }
-
-document.getElementById("contactForm").addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const message = document.getElementById("message").value;
-
-  if (name === "" || email === "" || message === "") {
-    alert("Please fill all fields");
-  } else {
-    alert("Message sent successfully!");
-  }
-});
 
 const testimonialTrack = document.querySelector(".testimonial-track");
 const testimonialCards = document.querySelectorAll(".testimonial-card");
@@ -361,26 +347,38 @@ lightbox.addEventListener("touchend", (e) => {
   }
 });
 
-document.getElementById("contactForm").addEventListener("submit", function (e) {
-  e.preventDefault();
+document.addEventListener("DOMContentLoaded", function () {
 
-  let firstName = document.getElementById("firstName").value.trim();
-  let lastName = document.getElementById("lastName").value.trim();
-  let email = document.getElementById("email").value.trim();
-  let phone = document.getElementById("phone").value.trim();
-  let subject = document.getElementById("subject").value.trim();
+  const form = document.getElementById("contactForm");
 
-  if (firstName && lastName && email && phone && subject) {
-    let whatsappNumber = "918669586311";
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
 
-    let message = `Hello, I am *${firstName} ${lastName}*.\n📧 Email: ${email}\n📞 Phone: ${phone}\n📝 Subject: ${subject}`;
+    const firstName = document.getElementById("contactFirstName").value.trim();
+    const lastName = document.getElementById("contactLastName").value.trim();
+    const email = document.getElementById("contactEmail").value.trim();
+    const phone = document.getElementById("contactPhone").value.trim();
+    const subject = document.getElementById("contactSubject").value.trim();
 
-    let encodedMessage = encodeURIComponent(message);
+    console.log(firstName, lastName, email, phone, subject);
 
-    let whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+    if (!firstName || !lastName || !email || !phone || !subject) {
+      alert("Please fill all fields.");
+      return;
+    }
 
-    window.open(whatsappURL, "_blank");
-  } else {
-    alert("Please fill all fields.");
-  }
+    const whatsappNumber = "918669586311";
+
+    const message =
+      `Hello, I am ${firstName} ${lastName}
+Email: ${email}
+Phone: ${phone}
+Subject: ${subject}`;
+
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+    window.open(url, "_blank");
+
+  });
+
 });
