@@ -1,9 +1,3 @@
-window.onload = function () {
-  if (!window.location.hash) {
-    window.location.hash = "home";
-  }
-};
-
 const hamburger = document.getElementById("hamburger");
 const navLinks = document.getElementById("navLinks");
 
@@ -24,6 +18,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       top: target.offsetTop - navbarHeight,
       behavior: "smooth"
     });
+
+    history.pushState(null, null, targetId);
 
     navLinks.classList.remove("active");
 
@@ -277,8 +273,6 @@ function getCardsPerSlide(){
   return window.innerWidth <= 768 ? 1 : 4;
 }
 
-/* Clone cards for infinite loop */
-
 function cloneCards(){
 
   const cardsPerSlide = getCardsPerSlide();
@@ -292,8 +286,6 @@ function cloneCards(){
 
 cloneCards();
 
-/* Update slider */
-
 function updateTestimonialSlider(){
 
   const cardsPerSlide = getCardsPerSlide();
@@ -304,8 +296,6 @@ function updateTestimonialSlider(){
 
 }
 
-/* Next */
-
 testimonialNext.addEventListener("click",()=>{
 
   const cardsPerSlide = getCardsPerSlide();
@@ -314,8 +304,6 @@ testimonialNext.addEventListener("click",()=>{
   updateTestimonialSlider();
 
 });
-
-/* Prev */
 
 testimonialPrev.addEventListener("click",()=>{
 
@@ -330,8 +318,6 @@ testimonialPrev.addEventListener("click",()=>{
   updateTestimonialSlider();
 
 });
-
-/* Infinite loop reset */
 
 testimonialTrack.addEventListener("transitionend",()=>{
 
@@ -352,8 +338,6 @@ testimonialTrack.addEventListener("transitionend",()=>{
   }
 
 });
-
-/* Auto slide */
 
 setInterval(()=>{
 

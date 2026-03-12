@@ -226,7 +226,7 @@ nav a:hover {
 }
 
 .slide4 {
-  background-image: url("../images/banner/banner4.jpg");
+  background-image: url("../images/banner/banner-4.jpg");
 }
 
 .arrow {
@@ -857,7 +857,7 @@ section {
   }
 
   .course-card {
-    padding: 20px 15px;
+    padding: 0;
     min-height: auto;
   }
 
