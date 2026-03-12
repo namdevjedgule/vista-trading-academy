@@ -190,7 +190,6 @@ counters.forEach(counter => {
 let currentPDF = "";
 let currentResource = "";
 
-// Open popup
 function openPopup(pdf, img, resourceName) {
   document.getElementById("resourcePopup").style.display = "flex";
   document.getElementById("popupImg").src = img;
@@ -199,12 +198,10 @@ function openPopup(pdf, img, resourceName) {
   currentResource = resourceName;
 }
 
-// Close popup
 function closePopup() {
   document.getElementById("resourcePopup").style.display = "none";
 }
 
-// Form submit
 document.getElementById("resourceForm").addEventListener("submit", function (e) {
 
   e.preventDefault();
@@ -218,7 +215,7 @@ document.getElementById("resourceForm").addEventListener("submit", function (e) 
     return;
   }
 
-  const yourWhatsApp = "918669586311";
+  const yourWhatsApp = "917020313732";
 
   const message =
     `New Resource Download Lead
@@ -232,10 +229,8 @@ Downloaded Resource: ${currentResource}`;
   const whatsappURL =
     `https://wa.me/${yourWhatsApp}?text=${encodeURIComponent(message)}`;
 
-  // Open WhatsApp
   window.open(whatsappURL, "_blank");
 
-  // Download PDF
   const link = document.createElement("a");
   link.href = currentPDF;
   link.download = "";
@@ -243,10 +238,8 @@ Downloaded Resource: ${currentResource}`;
   link.click();
   document.body.removeChild(link);
 
-  // Reset form
   document.getElementById("resourceForm").reset();
 
-  // Close popup
   closePopup();
 
 });
@@ -271,27 +264,79 @@ function checkFields() {
   downloadBtn.disabled = !allFilled;
 }
 
-const testimonialTrack = document.querySelector(".testimonial-track");
-const testimonialCards = document.querySelectorAll(".testimonial-card");
+document.addEventListener("DOMContentLoaded", function () {
 
-let testimonialIndex = 0;
+  const testimonialTrack = document.querySelector(".testimonial-track");
+  const testimonialCards = document.querySelectorAll(".testimonial-card");
+  const testimonialNext = document.querySelector(".next-testimonial");
+  const testimonialPrev = document.querySelector(".prev-testimonial");
 
-function slideTestimonials() {
+  let testimonialSlideIndex = 0;
 
-  const cardWidth = testimonialCards[0].offsetWidth + 25;
-
-  testimonialIndex++;
-
-  if (testimonialIndex >= testimonialCards.length - 3) {
-    testimonialIndex = 0;
+  function getCardsPerSlide() {
+    return window.innerWidth <= 768 ? 1 : 4;
   }
 
-  testimonialTrack.style.transform =
-    `translateX(-${testimonialIndex * cardWidth}px)`;
+  function updateTestimonialSlider() {
 
-}
+    const cardsPerSlide = getCardsPerSlide();
+    const cardWidth = testimonialCards[0].offsetWidth + 25;
+    const moveDistance = testimonialSlideIndex * cardWidth * cardsPerSlide;
 
-setInterval(slideTestimonials, 1200);
+    testimonialTrack.style.transform = `translateX(-${moveDistance}px)`;
+
+  }
+
+  testimonialNext.addEventListener("click", () => {
+
+    const cardsPerSlide = getCardsPerSlide();
+    const totalSlides = Math.ceil(testimonialCards.length / cardsPerSlide);
+
+    testimonialSlideIndex++;
+
+    if (testimonialSlideIndex >= totalSlides) {
+      testimonialSlideIndex = 0;
+    }
+
+    updateTestimonialSlider();
+
+  });
+
+  testimonialPrev.addEventListener("click", () => {
+
+    const cardsPerSlide = getCardsPerSlide();
+    const totalSlides = Math.ceil(testimonialCards.length / cardsPerSlide);
+
+    testimonialSlideIndex--;
+
+    if (testimonialSlideIndex < 0) {
+      testimonialSlideIndex = totalSlides - 1;
+    }
+
+    updateTestimonialSlider();
+
+  });
+
+  setInterval(() => {
+
+    const cardsPerSlide = getCardsPerSlide();
+    const totalSlides = Math.ceil(testimonialCards.length / cardsPerSlide);
+
+    testimonialSlideIndex++;
+
+    if (testimonialSlideIndex >= totalSlides) {
+      testimonialSlideIndex = 0;
+    }
+
+    updateTestimonialSlider();
+
+  }, 4000);
+
+  window.addEventListener("resize", updateTestimonialSlider);
+
+  updateTestimonialSlider();
+
+});
 
 const images = document.querySelectorAll(".footer-gallery img");
 const lightbox = document.getElementById("lightbox");
@@ -367,7 +412,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    const whatsappNumber = "918669586311";
+    const whatsappNumber = "917020313732";
 
     const message =
       `Hello, I am ${firstName} ${lastName}
