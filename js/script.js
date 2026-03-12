@@ -266,75 +266,105 @@ function checkFields() {
 
 document.addEventListener("DOMContentLoaded", function () {
 
-  const testimonialTrack = document.querySelector(".testimonial-track");
-  const testimonialCards = document.querySelectorAll(".testimonial-card");
-  const testimonialNext = document.querySelector(".next-testimonial");
-  const testimonialPrev = document.querySelector(".prev-testimonial");
+const testimonialTrack = document.querySelector(".testimonial-track");
+let testimonialCards = document.querySelectorAll(".testimonial-card");
+const testimonialNext = document.querySelector(".next");
+const testimonialPrev = document.querySelector(".prev");
 
-  let testimonialSlideIndex = 0;
+let testimonialSlideIndex = 0;
 
-  function getCardsPerSlide() {
-    return window.innerWidth <= 768 ? 1 : 4;
+function getCardsPerSlide(){
+  return window.innerWidth <= 768 ? 1 : 4;
+}
+
+/* Clone cards for infinite loop */
+
+function cloneCards(){
+
+  const cardsPerSlide = getCardsPerSlide();
+
+  for(let i=0;i<cardsPerSlide;i++){
+    const clone = testimonialCards[i].cloneNode(true);
+    testimonialTrack.appendChild(clone);
   }
 
-  function updateTestimonialSlider() {
+}
 
-    const cardsPerSlide = getCardsPerSlide();
-    const cardWidth = testimonialCards[0].offsetWidth + 25;
-    const moveDistance = testimonialSlideIndex * cardWidth * cardsPerSlide;
+cloneCards();
 
-    testimonialTrack.style.transform = `translateX(-${moveDistance}px)`;
+/* Update slider */
 
-  }
+function updateTestimonialSlider(){
 
-  testimonialNext.addEventListener("click", () => {
+  const cardsPerSlide = getCardsPerSlide();
+  const cardWidth = document.querySelector(".testimonial-card").offsetWidth + 25;
 
-    const cardsPerSlide = getCardsPerSlide();
-    const totalSlides = Math.ceil(testimonialCards.length / cardsPerSlide);
+  testimonialTrack.style.transform =
+  `translateX(-${testimonialSlideIndex * cardWidth * cardsPerSlide}px)`;
 
-    testimonialSlideIndex++;
+}
 
-    if (testimonialSlideIndex >= totalSlides) {
-      testimonialSlideIndex = 0;
-    }
+/* Next */
 
-    updateTestimonialSlider();
+testimonialNext.addEventListener("click",()=>{
 
-  });
-
-  testimonialPrev.addEventListener("click", () => {
-
-    const cardsPerSlide = getCardsPerSlide();
-    const totalSlides = Math.ceil(testimonialCards.length / cardsPerSlide);
-
-    testimonialSlideIndex--;
-
-    if (testimonialSlideIndex < 0) {
-      testimonialSlideIndex = totalSlides - 1;
-    }
-
-    updateTestimonialSlider();
-
-  });
-
-  setInterval(() => {
-
-    const cardsPerSlide = getCardsPerSlide();
-    const totalSlides = Math.ceil(testimonialCards.length / cardsPerSlide);
-
-    testimonialSlideIndex++;
-
-    if (testimonialSlideIndex >= totalSlides) {
-      testimonialSlideIndex = 0;
-    }
-
-    updateTestimonialSlider();
-
-  }, 4000);
-
-  window.addEventListener("resize", updateTestimonialSlider);
+  const cardsPerSlide = getCardsPerSlide();
+  testimonialSlideIndex++;
 
   updateTestimonialSlider();
+
+});
+
+/* Prev */
+
+testimonialPrev.addEventListener("click",()=>{
+
+  const cardsPerSlide = getCardsPerSlide();
+
+  if(testimonialSlideIndex === 0){
+    testimonialSlideIndex = Math.ceil(testimonialCards.length / cardsPerSlide);
+  }
+
+  testimonialSlideIndex--;
+
+  updateTestimonialSlider();
+
+});
+
+/* Infinite loop reset */
+
+testimonialTrack.addEventListener("transitionend",()=>{
+
+  const cardsPerSlide = getCardsPerSlide();
+  const totalSlides = Math.ceil(testimonialCards.length / cardsPerSlide);
+
+  if(testimonialSlideIndex >= totalSlides){
+
+    testimonialTrack.style.transition="none";
+    testimonialSlideIndex = 0;
+
+    updateTestimonialSlider();
+
+    setTimeout(()=>{
+      testimonialTrack.style.transition="transform 0.6s ease";
+    },50);
+
+  }
+
+});
+
+/* Auto slide */
+
+setInterval(()=>{
+
+  testimonialSlideIndex++;
+  updateTestimonialSlider();
+
+},4000);
+
+window.addEventListener("resize",updateTestimonialSlider);
+
+updateTestimonialSlider();
 
 });
 

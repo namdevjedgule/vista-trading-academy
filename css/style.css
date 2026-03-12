@@ -109,6 +109,7 @@ nav a:hover {
 }
 
 .btn-nav:hover {
+  color: black;
   transform: translateY(-3px);
   box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
 }
@@ -266,6 +267,19 @@ nav a:hover {
 .dot.active {
   background: #D4AF37;
   transform: scale(1.2);
+}
+
+.iso-badge-logo{
+  position:absolute;
+  top:5px;
+  right:10px;
+  z-index: 5;
+}
+
+.iso-badge-logo img{
+  width:120px;
+  height:auto;
+  filter: drop-shadow(0 3px 8px rgba(0,0,0,0.4));
 }
 
 @media (max-width:1024px) {
@@ -438,35 +452,12 @@ nav a:hover {
   }
 }
 
-.btn-primary {
-  background: linear-gradient(45deg, #D4AF37, #f5d76e);
-  padding: 12px 30px;
-  border-radius: 30px;
-  color: #FFFFFF;
-  font-weight: 600;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.btn-primary:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
-}
-
 @media (max-width:768px) {
 
   .hero-buttons {
     flex-direction: column;
     align-items: center;
     gap: 15px;
-  }
-
-  .btn-primary {
-    width: 80%;
-    text-align: center;
-    margin-left: 0;
   }
 
 }
@@ -944,10 +935,38 @@ section {
   margin-bottom: 40px;
 }
 
+.btn-primary {
+  background: linear-gradient(45deg, #D4AF37, #f5d76e);
+  padding: 12px 30px;
+  border-radius: 30px;
+  color: black;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+}
+
+@media (max-width:768px) {
+
+  .btn-primary {
+    width: 80%;
+    text-align: center;
+    margin-left: 0;
+  }
+
+}
+
 .resources-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  display: flex;
+  justify-content: center;
   gap: 30px;
+  flex-wrap: wrap;
   margin-top: 40px;
 }
 
@@ -1192,8 +1211,6 @@ section {
   font-weight:600;
   margin-bottom:15px;
 }
-
-/* Main heading */
 
 .testimonial-heading h2{
   font-size:36px;
